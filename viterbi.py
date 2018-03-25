@@ -263,7 +263,7 @@ def make_mistakes(sentence, seed = 1):
 def change_letter(word):
     methods = ['replace', 'remove', 'add']
     method = random.sample(methods, 1)[0]
-    times = random.sample(list(range(1+ceil(len(word)/3))), 1)[0]	
+    times = random.sample(list(range(1+ceil(len(word)/3))).remove(0), 1)[0]	
     global counter_replace, counter_remove, counter_add,count_changed_chars
     count_changed_chars+=times
     if method == 'replace':
@@ -398,9 +398,9 @@ baseline_score=evaluation_metrics(test_sentences,baseline_sents, new_sents)
 total_chars=0
 for sentence in test_sentences:
     new_sent=word_tokenize(sentence)
-    for char in new_sent:
-        total_chars+=1
-counter_replace, counter_add, counter_remove, counter_word, count_test_tokens,count_changed_chars
+    for word in new_sent:
+        for char in word:
+            total_chars+=1
 
 print("Percentage of replaced words: {}\n".format(counter_word/count_test_tokens))
 
